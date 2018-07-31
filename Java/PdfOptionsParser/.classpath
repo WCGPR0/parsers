@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="lib/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/datedFileAppender-1.0.2.jar"/>
+	<classpathentry kind="lib" path="lib/dom4j.osgi-1.6.1.jar"/>
+	<classpathentry kind="lib" path="lib/fontbox-1.7.1.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.16.jar"/>
+	<classpathentry kind="lib" path="lib/pdfbox-1.7.1.jar"/>
+	<classpathentry kind="lib" path="lib/poi-3.8-beta3.jar"/>
+	<classpathentry kind="lib" path="lib/poi-ooxml-3.6.jar"/>
+	<classpathentry kind="lib" path="lib/poi-ooxml-schemas-3.8-beta5.jar"/>
+	<classpathentry kind="lib" path="lib/xmlbeans-2.4.0.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

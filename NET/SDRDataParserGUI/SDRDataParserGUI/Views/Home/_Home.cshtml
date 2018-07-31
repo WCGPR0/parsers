@@ -1,0 +1,297 @@
+﻿@model SDRDataParserGUI.Models.GraphData
+    <div id="wrapper">
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Dashboard</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- /.panel -->
+                    <!-- DATA FEED -->
+                    <div class="panel panel-default data-feed">
+                        <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> Data Feed
+                            <div class="pull-right">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                        Actions
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu pull-right" role="menu">
+                                        <li>
+                                            <a href="#" data-toggle="modal" data-target="#myModal">Settings</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Refresh</a>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li>
+                                            <a href="#">Hide</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-hover table-striped" id="data-feed">
+                                            <div id="myModal" class="modal fade" role="dialog">
+                                                <div class="modal-dialog">
+
+                                                    <!-- Modal content-->
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                            <h4 class="modal-title">Settings (Data Feed)</h4>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form class="form-horizontal" role="form">
+                                                                <div class="form-group">
+                                                                    <label class="col-sm-2 control-label"
+                                                                           for="input_size">Max Size</label>
+                                                                    <div class="col-sm-10">
+                                                                        <input type="range" class="form-control"
+                                                                               id="input_size" placeholder="Size" />
+                                                                    </div>
+                                                            </form>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </table>
+                                    </div>
+                                </div>
+                                    <!-- /.col-lg-4 (nested) -->
+                                    <div class="col-lg-8">
+                                        <div id="morris-bar-chart"></div>
+                                    </div>
+                                    <!-- /.col-lg-8 (nested) -->
+                                </div>
+                            <!-- /.row -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- / DATA FEED -->
+                    <div class="panel panel-default invisible">
+                        <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> Line Chart
+                            <div class="pull-right">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                        Actions
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu pull-right" role="menu">
+                                        <li>
+                                            <a href="#" data-toggle="modal" data-target="#myModal_line">Settings</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Refresh</a>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li>
+                                            <a href="#">Hide</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body line-chart">
+                            @{Html.RenderPartial("_Line"); }
+                        </div>
+                        <!-- /.panel-body -->
+                        <div id="myModal_line" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Settings (Data Feed)</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class="form-horizontal" role="form">
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label"
+                                                       for="input_size">Ticker Symbol</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control"
+                                                           id="symbol" maxlength="3" placeholder="Symbol" />
+                                                </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        </div>
+                   </div>
+            </div>
+                <!-- /.col-lg-8 -->
+                <div class="col-lg-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bell fa-fw"></i> Notifications Panel
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="list-group">
+                                <a href="#" class="list-group-item">
+                                    <i class="fa fa-comment fa-fw"></i> Ice Tvus Update!
+                                    <span class="pull-right text-muted small">
+                                        <em>4 minutes ago</em>
+                                    </span>
+                                </a>
+                            </div>
+                            <!-- /.list-group -->
+                            <a href="#" class="btn btn-default btn-block">View All Alerts</a>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> <div id="chart_text">Column Chart</div>
+                        </div>
+                        <div class="panel-body">
+                            <div id="chartContainer_Donut"></div>
+                            <a href="#" onclick="replaceWithDonut()" class="btn btn-default btn-block">View Details</a>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                    <div class="chat-panel panel panel-default summary-chart">
+                    <div class="chat-panel panel panel-default ">
+                        <div class="panel-heading">
+                            <i class="fa fa-comments fa-fw"></i> Market Share Summary
+                            <div class="btn-group pull-right">
+                                <button type="button" class="btn btn-default btn-xs dropdown-toggle">
+                                    <i class="fa fa-chevron-down"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                                <div id="chartContainer"></div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel .chat-panel -->
+                </div>
+                <!-- /.col-lg-4 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+<script type="text/javascript">
+
+    $("#input_size").change(function () { $('#dataTable tbody tr:gt(' + $('#input_size').val() + ')').hide(); });
+
+    // Swap between donuts
+    function replaceWithDonut () {
+        var chart;
+	        if ($("#chart_text").text() == 'Donut Chart') { $("#chart_text").html('Column Chart') 
+	            chart = new CanvasJS.Chart("chartContainer", {
+	                title: {
+	                    text: "Summary of Markets"
+	                },
+	                animationEnabled: true,
+	                legend: {
+	                    fontSize: 20,
+	                    fontFamily: "Helvetica"
+	                },
+	                theme: "theme2",
+	                data: [
+                    {
+                        type: "doughnut",
+                        indexLabelFontFamily: "Garamond",
+                        indexLabelFontSize: 20,
+                        indexLabel: "{label} {y}%",
+                        startAngle: -20,
+                        showInLegend: true,
+                        toolTipContent: "{legendText} {y}%",
+                        dataPoints: [
+                            { y: @(Model.ICE_COUNT / (Model.CME_COUNT + Model.ICE_COUNT + Model.NODAL_COUNT) * 100), legendText: "ICE", label: "ICE" },
+                            { y: @(Model.CME_COUNT / (Model.CME_COUNT + Model.ICE_COUNT + Model.NODAL_COUNT) * 100), legendText: "CME", label: "CME" },
+                            { y: @(Model.NODAL_COUNT / (Model.CME_COUNT + Model.ICE_COUNT + Model.NODAL_COUNT) * 100), legendText: "NODAL", label: "NODAL" }
+                        ],
+                    }
+	                ]
+	            });
+	        }
+        else if ($("#chart_text").text() == 'Column Chart') { $("#chart_text").html('Donut Chart');
+            chart = new CanvasJS.Chart("chartContainer", {
+                theme: "theme2",
+                animationEnabled: true,
+                title: {
+                    text: "Summary of markets"
+                },
+                data: [
+                {
+                    type: "column",
+                    dataPoints: [
+                        { y: @(Model.ICE_COUNT / (Model.CME_COUNT + Model.ICE_COUNT + Model.NODAL_COUNT)), label: "ICE" },
+                        { y: @(Model.CME_COUNT / (Model.CME_COUNT + Model.ICE_COUNT + Model.NODAL_COUNT)), label: "CME" },
+                        { y: @(Model.NODAL_COUNT / (Model.CME_COUNT + Model.ICE_COUNT + Model.NODAL_COUNT)), label: "NODAL" }
+                    ],
+
+                    //You can add dynamic data from the controller as shown below. Check the controller and uncomment the line which generates dataPoints.
+                    //dataPoints: @Html.Raw(ViewBag.DataPoints),
+                }
+                ]
+            });
+	        }
+	        chart.render();
+    }
+</script>
+<script>
+    $(window).on('load',replaceWithDonut());
+    $(".summary-chart button").click(function() { $(".summary-chart").hide()});
+    $(".data-feed .btn-group ul li:nth-child(4)").click(function() { $("#dataTable").hide()});
+
+    function loadPartialView_SDR() {
+        $.ajax({
+            url: "@Url.Action("get_SDR", "Home")" + "?id=" + $('#input_size').val(),
+            type: 'GET', // <-- make a async request by GET
+        dataType: 'html', // <-- to expect an html response
+        success: function(result) {
+            $('#data-feed').html(result);
+        }
+    });
+    }
+
+    function loadPartialView_DTTC() {
+        $.ajax({
+            url: "@Url.Action("get_DTTC", "Home")" + "?id=" + $('#input_size2').val(),
+            type: 'GET', // <-- make a async request by GET
+        dataType: 'html', // <-- to expect an html response
+        success: function(result) {
+            $('#rss-feed').html(result);
+        }
+    });
+    }
+
+    $(function() {
+        window.setInterval("loadPartialView_SDR()", 30000);
+        window.setInterval("loadPartialView_DTTC()", 30000);
+    });
+</script>

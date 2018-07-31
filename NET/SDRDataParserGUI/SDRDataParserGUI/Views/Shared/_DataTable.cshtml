@@ -1,0 +1,258 @@
+@using SDRDataParserGUI.Models
+@using C1.Web.Mvc.Grid
+
+@model List<GraphData.Transaction>
+@{
+    ControlOptions optionsModel = ViewBag.DemoOptions;
+    Dictionary<string, FilterType> filterTypes = ViewBag.FilterTypes;
+    ViewBag.DemoSettings = true;
+}
+@{ 
+    Layout = Request.IsAjaxRequest() ? null : "~/Views/Shared/_Layout_DataTable.cshtml";
+}
+
+<style>
+    label {
+        display: inline-block;
+        font-weight: normal;
+        padding: 3px;
+    }
+</style>
+
+<div id="dialog" style="display:none;color:red;"></div>
+
+<script>
+    function collectingQueryData(sender, e) {
+        if (e.extraRequestData == null) {
+            e.extraRequestData = {};
+        }
+
+        @foreach (var menuName in optionsModel.Options.Keys.Select(ControlOptions.ToOptionName))
+        {
+        <text>
+        e.extraRequestData["@(menuName)"] = '@(optionsModel.Options[menuName].CurrentValue)';
+        </text>
+        }
+    }
+    var currentItemCount;
+    var currentItems, changedItems;
+
+    window.onload = function (e) {
+        var flexGrid = wijmo.Control.getControl("#ovFlexGrid");
+        var sd = flexGrid.collectionView.sortDescriptions;
+        sdNew = wijmo.collections.SortDescription("report_time", true);
+        sd.splice(0, sd.length, sdNew);
+        setInterval(function () { flexGrid.collectionView.refresh(false); }, @DataObtainer.UPDATE_INTERVAL);
+
+        flexGrid.collectionView.collectionChanged.addHandler(function(s,e) {
+            if ($("div#emailalert div.wj-form-control").text() == "Email Alert: On") {
+                var currentItemCount_ = s.itemCount;
+                    if (typeof currentItemCount != "undefined" && currentItemCount != currentItemCount_)
+                    {
+                        
+                    changedItems = [];
+                    s.items.forEach((item, i) => {
+                            var changed = true;
+                            currentItems.forEach((item_, j) => {
+                                if (JSON.stringify(item) === JSON.stringify(item_)) changed = false;
+                            });
+                            if (changed == true) changedItems.push(item);
+                    });
+
+                    changedItems.forEach((item_, j) => {
+                    
+                        $.ajax({
+                            url: "@Url.Action("Email", "Home")",
+                            type: 'POST',
+                        dataType: 'json',
+                        data: $.param(item_),
+                        success: function(result) {
+                            $('#dialog').html(result.responseText);
+                            $('#dialog').dialog({
+                                autoOpen: true,
+                                show: "blind",
+                                hide: "explode",
+                                modal: true,
+                                open: function(event, ui) {
+                                    setTimeout(function(){
+                                        $('#dialog').dialog('close');                
+                                    }, 5000);
+                                }
+                            });
+                            if (!result.success) {
+                                alert(result.responseText);
+                                window.location.replace("@Url.Action("Index", "Index", null, Request.Url.Scheme)");
+                            }
+                        }
+                        });
+                    
+                    });
+                }
+                currentItemCount = currentItemCount_;
+                currentItems = [];
+                s.items.forEach((item, i) => {currentItems.push(item)});
+            }
+        });
+    };
+
+    function toggleEmail(e) {
+        e = e || $("#emailalert");
+        e.html().includes("Off") ? toggleEmailOn() : toggleEmailOff();
+    }
+
+    function toggleEmailOn(e) {
+        e = e || $("#emailalert");
+        var _text = e.html();
+        e.html(_text.replace("Off", "On"));
+        e.css("background-color", "green");
+        var grid = wijmo.Control.getControl("#ovFlexGrid").collectionView;
+        currentItemCount = grid.itemCount;
+        currentItems = [];
+        grid.items.forEach((item, i) => {currentItems.push(item)});
+    }
+
+    function toggleEmailOff(e) {
+        e = e || $("#emailalert");
+        var emailAlert = $("#emailalert");
+        var _text = e.html();
+        e.html(_text.replace("On", "Off"));
+        e.css("background-color", "gainsboro");
+    }
+
+    function resetEmailAlert(e) {
+        e = e || $("#emailalert");
+        if ( e.html().includes("On")) {
+            toggleEmailOff(e);
+        }
+    }
+</script>
+
+<!-- Storing and Restoring FlexGrid layout via cookies -->
+<script>
+    c1.documentReady(function () {
+        var theGrid = wijmo.Control.getControl("#ovFlexGrid");
+        var theFilter = c1.getExtender(grid, "theGridFilter");
+        var json = localStorage[theGrid.hostElement.id + '_state'];
+        if (json) {
+            var state = JSON.parse(json);
+            theGrid.columnLayout = state.columns;
+            theFilter.updateFilterDefinition = state.filterDefinition;
+            theGrid.collectionView.sortDescriptions.clear();
+            for (var i = 0; i < state.sortDescriptions.length; i++) {
+                var sortDesc = state.sortDescriptions[i];
+                theGrid.collectionView.sortDescriptions.push(
+                    new wijmo.collections.SortDescription(sortDesc.property, sortDesc.ascending)
+                );
+            }
+        }
+    });
+
+    function saveFilterState(s, e) {
+        var gridName = s.grid.hostElement.id;
+        var theFilter = c1.getExtender(s.grid, "theGridFilter");
+        var sorts = s.grid.collectionView.sortDescriptions.map(function (sort) {
+            return { property: sort.property, ascending: sort.ascending };
+        });
+        var state = {
+            columns: s.grid.columnLayout,
+            filterDefinition: theFilter.filterDefinition,
+            sortDescriptions: sorts
+        }
+        localStorage[gridName + '_state'] = JSON.stringify(state);
+    }
+
+    function OnClientFilterApplied(s, e)
+    {
+        resetEmailAlert();
+        saveFilterState(s, e);
+    }
+
+    function OnClientFilterChanged(s, e)
+    {
+        resetEmailAlert();
+        saveFilterState(s, e);
+    }
+
+    function OnClientFilterChanging(s, e)
+    {
+        saveFilterState(s, e);
+    }
+</script>
+
+@(Html.C1().FlexGrid<GraphData.Transaction>()
+                .Id("ovFlexGrid")
+                .AutoGenerateColumns(false)
+                .Bind(bl => bl.Bind(Model).OnClientQueryData("collectingQueryData"))
+                .CssClass("grid")
+                .IsReadOnly(true)
+                .AutoClipboard(true)
+                .Columns(columns =>
+                {
+                    /*Array.ForEach(Model.getName(), x => {
+                        columns.Add(column => column.Binding(x).Width("10*")); });*/
+                    columns.Add(column => column.Binding("contract_name").Width("18*"));
+                    columns.Add(column => column.Binding("source").Width("4*"));
+                    columns.Add(column => column.Binding("type").Width("4*"));
+                    columns.Add(column => column.Binding("start_date").Width("6*"));
+                    columns.Add(column => column.Binding("end_date").Width("6*"));
+                    columns.Add(column => column.Binding("report_time").Width("10*"));
+                    columns.Add(column => column.Binding("exec_time").Width("10*"));
+                    columns.Add(column => column.Binding("strategy").Width("4*"));
+                    columns.Add(column => column.Binding("total_volume").Width("6*"));
+                    columns.Add(column => column.Binding("daily_volume").Width("6*"));
+                    columns.Add(column => column.Binding("price").Width("6*").Format("C5"));
+                    columns.Add(column => column.Binding("premium").Width("6*").Format("C3"));
+                    columns.Add(column => column.Binding("strike").Width("4*").Format("C3"));
+                    columns.Add(column => column.Binding("unit").Width("5*"));
+                    columns.Add(column => column.Binding("status").Width("5*"));
+                })
+                .SelectionMode(SelectionMode.Row)
+                .AllowSorting(true)
+                .Filterable(f => {
+                    f
+                    .Id("theGridFilter")
+                    .DefaultFilterType(FilterType.Both)
+                    .ColumnFilterTypes(filterTypes)
+                    .OnClientFilterApplied("OnClientFilterApplied")
+                    .OnClientFilterChanged("OnClientFilterChanged")
+                    .OnClientFilterChanging("OnClientFilterChanging");
+                })
+)
+@Html.Partial("_OptionsMenu", optionsModel)
+
+<div id="emailalert" name="emailalert" class="wj-control wj-dropdown wj-content wj-combobox wj-menu wj-state-focused" tabindex="-1" style="background-color: gainsboro">
+    <div style="position:relative" class="wj-template"><div class="wj-input"><div class="wj-input-group wj-input-btn-visible"><div wj-part="header" class="wj-form-control" style="cursor:default">Email Alert:&nbsp;<b>Off</b></div><input wj-part="input" type="text" class="wj-form-control" name="emailalert" style="display: none;"><span wj-part="btn" class="wj-input-group-btn" tabindex="-1" style=""></span></div></div></div>
+</div>
+
+<script>
+     var grid = wijmo.Control.getControl("#ovFlexGrid");
+    $("#exportdata div.wj-form-control").click(function() {exportGrid();});
+    function exportGrid() {
+        if (grid)
+        {            
+            switch($("div#exportdata div.wj-form-control").text()) {
+                case "Export Data: Excel":
+                    wijmo.grid.xlsx.FlexGridXlsxConverter.saveAsync(grid, { includeCellStyles: false }, 'SDRDataParserGUI.xlsx');
+                    break;
+                case "Export Data: PDF":
+                    wijmo.grid.pdf.FlexGridPdfConverter.export(grid, 'SDRDataParserGUI.pdf', {
+                        documentOptions: {
+                            /*pageSettings: {
+                                layout: wijmo.pdf.PdfPageOrientation.Landscape
+                            },*/
+                            info: {
+                                title: 'SDRDataParserGUI'
+                            }
+                        }});
+                    break;
+                default:
+            }
+        }
+    }
+    $(document).ready(function() {
+        $("#emailalert").appendTo($("#optionsForm"));
+        $("#emailalert").click(function() {
+            toggleEmail($(this));
+        });
+    });
+</script>

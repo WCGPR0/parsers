@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Tuple<string, string> >
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<string> members = ViewBag.members;
+}
+
+
+<form action="@Url.Action("Index","Account")" method="post" autocomplete="on">
+
+    <div>
+        <label>Group:</label>
+        @(Html.C1().ComboBox().Bind(members).SelectedIndex(0).IsEditable(true).Name("Group"))
+        <input class="btn btn-danger" type="submit" name="delete" value="" style="position:relative; top:4px;"><i class="fa fa-trash" style="position: relative; left:-17.5px;"></i></input>
+    </div>
+
+    <div class="col-lg-12">
+        <div class="form-group">
+            <div class="input-group">
+                <input type="text" class="form-control" name="Filter" id="usr" placeholder="Search for...">
+                <span class="input-group-btn">
+                    <input class="btn btn-secondary" type="submit" name="submit" />
+                </span>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+<div class="form-check">
+    @foreach (var product in Model ?? Enumerable.Empty<Tuple<string, string> >())
+    {
+        <label class="form-check-label">
+            <input class="form-check-input" type="checkbox" style="visibility:hidden" value="@(product.Item1 + '|' + product.Item2)" />
+            @product.Item1
+        </label>
+    }
+</div>
+
+<script>
+    $(".form-check-input").change(function () {
+        if (this.checked) {
+            $("#usr").val(!$("#usr").val() ? $(this).val() : $("#usr").val() + "," + $(this).val());
+            $(this).parent("label").addClass("select");
+        }
+        else {
+            $("#usr").val().charAt($("#usr").val().indexOf($(this).val()) - 1) == ',' ?
+            $("#usr").val($("#usr").val().replace("," + $(this).val(), "")) : $("#usr").val().charAt($("#usr").val().indexOf($(this).val()) + $(this).val().length) == ',' ?
+                $("#usr").val($("#usr").val().replace($(this).val() + ",", "")) : $("#usr").val($("#usr").val().replace($(this).val(), ""));
+            $(this).parent("label").removeClass("select");
+        }
+    });
+    $(document).ready(function () {
+        $("label:has(input[value*=ICE_DTTC])").addClass("ice_dttc");
+        $("label:has(input[value*=ICE_RT])").addClass("ice_rt");
+    });
+</script>

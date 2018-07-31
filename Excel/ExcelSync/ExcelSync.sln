@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelSync", "ExcelSync\ExcelSync.csproj", "{7FED299E-B023-4C7E-84D4-6749F2A76DEF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Development|Any CPU = Development|Any CPU
+		Development|x86 = Development|x86
+		Energy|Any CPU = Energy|Any CPU
+		Energy|x86 = Energy|x86
+		Equities|Any CPU = Equities|Any CPU
+		Equities|x86 = Equities|x86
+		Metals|Any CPU = Metals|Any CPU
+		Metals|x86 = Metals|x86
+		Rates|Any CPU = Rates|Any CPU
+		Rates|x86 = Rates|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+		Volatis|Any CPU = Volatis|Any CPU
+		Volatis|x86 = Volatis|x86
+		Volbroker|Any CPU = Volbroker|Any CPU
+		Volbroker|x86 = Volbroker|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7FED299E-B023-4C7E-84D4-6749F2A76DEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FED299E-B023-4C7E-84D4-6749F2A76DEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FED299E-B023-4C7E-84D4-6749F2A76DEF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7FED299E-B023-4C7E-84D4-6749F2A76DEF}.Development|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FED299E-B023-4C7E-84D4-6749F2A76DEF}.Development|Any CPU.Build.0 = Debug|Any CPU
+		{7FED299E-B023-4C7E-84D4-6749F2A76DEF}.Development|x86.ActiveCfg = Debug|Any CPU
+		{7FED299E-B023-4C7E-84D4-6749F2A76DEF}.Energy|Any CPU.ActiveCfg = Release|Any CPU
+		{7FED299E-B023-4C7E-84D4-6749F2A76DEF}.Energy|Any CPU.Build.0 = Release|Any CPU
+		{7FED299E-B023-4C7E-84D4-6749F2A76DEF}.Energy|x86.ActiveCfg = Release|Any CPU
+		{7FED299E-B023-4C7E-84D4-6749F2A76DEF}.Equities|Any CPU.ActiveCfg = Release|Any CPU
+		{7FED299E-B023-4C7E-84D4-6749F2A76DEF}.Equities|Any CPU.Build.0 = Release|Any CPU
+		{7FED299E-B023-4C7E-84D4-6749F2A76DEF}.Equities|x86.ActiveCfg = Release|Any CPU
+		{7FED299E-B023-4C7E-84D4-6749F2A76DEF}.Metals|Any CPU.ActiveCfg = Release|Any CPU
+		{7FED299E-B023-4C7E-84D4-6749F2A76DEF}.Metals|Any CPU.Build.0 = Release|Any CPU
+		{7FED299E-B023-4C7E-84D4-6749F2A76DEF}.Metals|x86.ActiveCfg = Release|Any CPU
+		{7FED299E-B023-4C7E-84D4-6749F2A76DEF}.Rates|Any CPU.ActiveCfg = Release|Any CPU
+		{7FED299E-B023-4C7E-84D4-6749F2A76DEF}.Rates|Any CPU.Build.0 = Release|Any CPU
+		{7FED299E-B023-4C7E-84D4-6749F2A76DEF}.Rates|x86.ActiveCfg = Release|Any CPU
+		{7FED299E-B023-4C7E-84D4-6749F2A76DEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FED299E-B023-4C7E-84D4-6749F2A76DEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FED299E-B023-4C7E-84D4-6749F2A76DEF}.Release|x86.ActiveCfg = Release|Any CPU
+		{7FED299E-B023-4C7E-84D4-6749F2A76DEF}.Volatis|Any CPU.ActiveCfg = Release|Any CPU
+		{7FED299E-B023-4C7E-84D4-6749F2A76DEF}.Volatis|Any CPU.Build.0 = Release|Any CPU
+		{7FED299E-B023-4C7E-84D4-6749F2A76DEF}.Volatis|x86.ActiveCfg = Release|Any CPU
+		{7FED299E-B023-4C7E-84D4-6749F2A76DEF}.Volbroker|Any CPU.ActiveCfg = Release|Any CPU
+		{7FED299E-B023-4C7E-84D4-6749F2A76DEF}.Volbroker|Any CPU.Build.0 = Release|Any CPU
+		{7FED299E-B023-4C7E-84D4-6749F2A76DEF}.Volbroker|x86.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

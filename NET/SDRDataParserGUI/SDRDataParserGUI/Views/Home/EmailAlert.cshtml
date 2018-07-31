@@ -1,0 +1,215 @@
+@using SDRDataParserGUI.Models
+@using System.Globalization
+
+@model GraphData.Transaction
+
+@{ 
+    Layout = null;
+}
+<html>
+<head>
+    <style>
+        #invoice-POS {
+            box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5);
+            padding: 2mm;
+            margin: 0 auto;
+            width: 88mm;
+            background: #FFF;
+        }
+
+            #invoice-POS ::selection {
+                background: #f31544;
+                color: #FFF;
+            }
+
+            #invoice-POS ::moz-selection {
+                background: #f31544;
+                color: #FFF;
+            }
+
+            #invoice-POS h1 {
+                font-size: 3.0em;
+                color: #222;
+            }
+
+            #invoice-POS h2 {
+                font-size: 1.8em;
+            }
+
+            #invoice-POS h3 {
+                font-size: 2.4em;
+                font-weight: 300;
+                line-height: 2em;
+            }
+
+            #invoice-POS p {
+                font-size: 1.2em;
+                color: #666;
+                line-height: 1.2em;
+            }
+
+            #invoice-POS #top, #invoice-POS #mid, #invoice-POS #bot {
+                /* Targets all id with 'col-' */
+                border-bottom: 1px solid #EEE;
+            }
+
+            #invoice-POS #top {
+                min-height: 100px;
+            }
+
+            #invoice-POS #mid {
+                min-height: 80px;
+            }
+
+            #invoice-POS #bot {
+                min-height: 50px;
+            }
+
+            #invoice-POS #top .logo {
+                height: 60px;
+                width: 60px;
+                background: url(/Content/Images/Logo.png) no-repeat;
+                background-size: 265px 50px;
+  
+            }
+
+            #invoice-POS .info {
+                display: block;
+                margin-left: 0;
+            }
+
+            #invoice-POS .title {
+                float: right;
+            }
+
+                #invoice-POS .title p {
+                    text-align: right;
+                }
+
+            #invoice-POS table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+            #invoice-POS .tabletitle {
+                font-size: .5em;
+                background: #EEE;
+            }
+
+            #invoice-POS .service {
+                border-bottom: 1px solid #EEE;
+            }
+
+            #invoice-POS .item {
+                width: 24mm;
+            }
+
+            #invoice-POS .itemtext {
+                font-size: 1.4em;
+            }
+
+            #invoice-POS #legalcopy {
+                margin-top: 5mm;
+            }
+    </style>
+</head>
+<body>
+    <div id="invoice-POS">
+
+        <center id="top">
+            <div class="logo"></div>
+            <div class="info">
+                <h2>SDRDataParserGUI Alerts</h2>
+            </div><!--End Info-->
+        </center><!--End InvoiceTop-->
+
+        <div id="mid">
+            <div class="info">
+                <h2>@Model.source</h2>
+                <p>
+                    Report Time : @Model.report_time</br>
+                    Executing Time   : @Model.exec_time</br>
+                </p>
+            </div>
+        </div><!--End Invoice Mid-->
+
+        <div id="bot">
+
+            <div id="table">
+                <table>
+                    <tr class="tabletitle">
+                        <td colspan="2"><h1>@Model.contract_name</h1></td>
+                    </tr>
+
+                    <tr class="service">
+                        <td class="tableitem"><p class="itemtext">Total Volume</p></td>
+                        <td class="tableitem"><p class="itemtext">@String.Format("{0:n0}",Model.total_volume)</p></td>
+                    </tr>
+
+                    <tr class="service">
+                        <td class="tableitem"><p class="itemtext">Daily Volume</p></td>
+                        <td class="tableitem"><p class="itemtext">@String.Format("{0:n2}", Model.daily_volume)</p></td>
+                    </tr>
+
+                    <tr class="service">
+                        <td class="tableitem"><p class="itemtext">Price</p></td>
+                        <td class="tableitem"><p class="itemtext">@String.Format(new CultureInfo("en-US"), "{0:C5}",Model.price)</p></td>
+                    </tr>
+
+                    <tr class="service">
+                        <td class="tableitem"><p class="itemtext">Start Date</p></td>
+                        <td class="tableitem"><p class="itemtext">@Model.start_date</p></td>
+                    </tr>
+
+                    <tr class="service">
+                        <td class="tableitem"><p class="itemtext">End Date</p></td>
+                        <td class="tableitem"><p class="itemtext">@Model.end_date</p></td>
+                    </tr>
+
+                    <tr class="service">
+                        <td class="tableitem"><p class="itemtext">Type</p></td>
+                        <td class="tableitem"><p class="itemtext">@Model.type</p></td>
+                    </tr>
+
+                    <tr class="service">
+                        <td class="tableitem"><p class="itemtext">Strategy</p></td>
+                        <td class="tableitem"><p class="itemtext">@Model.strategy</p></td>
+                    </tr>
+
+                    <tr class="service">
+                        <td class="tableitem"><p class="itemtext">Premium</p></td>
+                        <td class="tableitem"><p class="itemtext">@String.Format(new CultureInfo("en-US"), "{0:C3}", Model.premium)</p></td>
+                    </tr>
+                    <tr class="service">
+                        <td class="tableitem"><p class="itemtext">Strike</p></td>
+                        <td class="tableitem"><p class="itemtext">@String.Format(new CultureInfo("en-US"), "{0:C3}", Model.strike)</p></td>
+                    </tr>
+
+                    <tr class="service">
+                        <td class="tableitem"><p class="itemtext">Unit</p></td>
+                        <td class="tableitem"><p class="itemtext">@Model.unit</p></td>
+                    </tr>
+
+                    <tr class="service">
+                        <td class="tableitem"><p class="itemtext">Status</p></td>
+                        <td class="tableitem"><p class="itemtext">@Model.status</p></td>
+                    </tr>
+
+                    <tr class="tabletitle"></tr>
+                </table>
+            </div><!--End Table-->
+            <!--<div id="legalcopy">
+                        <p class="legal">
+                           This document is the property of, and is proprietary to, us and/or any of its members, affiliates, and subsidiaries
+            (collectively ? ?) and is identified as ?Confidential.? Those parties to whom it is distributed shall exercise the same degree of custody and
+            care afforded their own such information. We makes no claims concerning the validity of the information provided herein and will not be held
+            liable for any use of this information.The information provided herein may be displayed and printed for your internal use only and
+            may not be reproduced, retransmitted, distributed, disseminated, sold, published, broadcast or circulated to anyone
+            without the express written consent. Copyright ? 2016.
+                        </p>
+                    </div>-->
+
+        </div><!--End InvoiceBot-->
+    </div><!--End Invoice-->
+</body>
+</html>

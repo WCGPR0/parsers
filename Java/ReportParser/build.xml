@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project default="default">
+	<property name="project.name" value="ReportParser"/>
+    <import file="../common-build.xml"/>
+</project>

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<customUI onLoad="Ribbon_Load" xmlns="http://schemas.microsoft.com/office/2006/01/customui">
+    <ribbon>
+        <tabs>
+            <tab label="Real Time Sync">
+                <group id="group1" label="Real time Sync">
+                    <toggleButton id="buttonToggleConnect" imageMso="ListSynchronize" onAction="buttonToggleConnect_Click" label="Connect" />
+                    <editBox id="editBoxChannel" label="Channel:" showImage="false" />
+                    <labelControl id="LabelStatus" label="Not Connected" />
+                    <separator id="separator1" />
+                </group>
+            </tab>
+        </tabs>
+    </ribbon>
+</customUI>

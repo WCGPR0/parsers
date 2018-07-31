@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<!-- ITEM TYPES -->
+	<xs:complexType name="itemType_int">
+		<xs:simpleContent>
+			<xs:extension base="xs:integer">
+				<xs:attribute name="type" type="xs:string" use="required"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="itemType_string">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="type" type="xs:string" use="required"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="SELECT">
+		<xs:all>
+			<xs:element name="PRD_CODE" type="itemType_string"/>
+			<xs:element name="CONTRACT_ID" type="itemType_int"/>
+			<xs:element name="CONTRACT_NAME" type="itemType_string"/>
+			<xs:element name="START_DATE" type="itemType_string"/>
+			<xs:element name="END_DATE" type="itemType_string"/>
+			<xs:element name="SOURCE" type="itemType_string"/>
+			<xs:element name="STRIKE" type="itemType_int"/>
+		</xs:all>
+	</xs:complexType>
+	<xs:complexType name="UPDATE">
+		<xs:all>
+			<xs:element name="SETTLEMENT_PRICE" type="itemType_int"/>
+			<xs:element name="VOLUME" type="itemType_int"/>
+			<xs:element name="STRATEGY" type="itemType_string"/>
+			<xs:element name="PREMIUM" type="itemType_int"/>
+			<xs:element name="UNIT" type="itemType_string"/>
+			<xs:element name="EXEC_TIME" type="itemType_string"/>
+		</xs:all>
+	</xs:complexType>
+	<xs:element name="trades">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="trade" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="SELECT" type="SELECT"/>
+							<xs:element name="UPDATE" type="UPDATE"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

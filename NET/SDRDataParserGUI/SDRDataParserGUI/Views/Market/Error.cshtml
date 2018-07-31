@@ -1,0 +1,12 @@
+﻿@model IEnumerable<string>
+
+@Page.Title
+<h4>The daily market graph has not been put up yet; historical graphs avaliable below:<br /></h4>
+<ul class="list-group">
+    @foreach (var file in Model ?? Enumerable.Empty<string>())
+    {
+        DateTime date;
+        DateTime.TryParseExact(file, "yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out date);
+        <li class="list-group-item"><a href="@Url.Action("Index","Market", new { id = @file })"> @date.ToLongDateString()</a></li>
+    }
+</ul>

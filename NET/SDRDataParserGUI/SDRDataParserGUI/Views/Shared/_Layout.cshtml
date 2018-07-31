@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/Scripts/canvasjs.min.js")
+    @Html.C1().Resources("default")
+</head>
+<body>
+    <div id="navbar" class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Reporting", "Index", "Index", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">@ViewContext.RouteData.Values["username"]<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="@Url.Action("Index","Index")">Home</a></li>
+                        <li><a href="@Url.Action("Index", "Home")">Datatable</a></li>
+                        <li><a href="@Url.Action("Index", "Market")">Market</a></li>
+                        <li class="divider"></li>
+                        <li><a href="@Url.Action("Group","Account")">Group Setting</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <!--<div class="navbar-collapse collapse" style="float:right">
+                <ul class="nav navbar-nav">
+                  <li>Html.ActionLink("SDRDataParser", "Index", "Home", new { area = "" }, null)</li> 
+                </ul>
+            </div>-->
+        </div>
+    </div>
+    <div class="container body-content">
+        <div id="wrapper">
+            <div id="page-wrapper">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">@ViewBag.Title</h1>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                    @RenderBody()
+            </div>
+        </div>
+                    <hr />
+                    <footer>
+                        <p>&copy; @DateTime.Now.Year</p>
+                    </footer>
+                </div>
+
+
+                @Scripts.Render("~/bundles/bootstrap")
+
+                @Styles.Render("~/Content/Style.css")
+                @RenderSection("scripts", required: false)
+</body>
+</html>

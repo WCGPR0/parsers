@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "Group Settings";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<string> members = ViewBag.members;
+}
+
+
+<form action="Group" method="post">
+
+    <div class="col-lg-12">
+        <div class="form-group">
+            <div class="input-group">
+                <div>
+                    <label>Group:</label>
+                    @(Html.C1().ComboBox().Bind(members).SelectedIndex(0).IsEditable(false).Name("Group"))
+                </div>
+                <span class="input-group-btn">
+                    <button class="btn btn-secondary" type="submit">Go!</button>
+                </span>
+            </div>
+        </div>
+    </div>
+
+</form>

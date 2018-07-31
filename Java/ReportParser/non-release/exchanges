@@ -1,0 +1,77 @@
+EUREX
+*****
+	international derivatives exchange, based in Frankfurt
+	owned by Deutsche Borse
+	can download spreadsheet with product code and corresponding isin
+	http://www.eurexchange.com/blob/4430/522d1d27d6f683291faedc4bc408eec8/data/vendorcodes.csv
+	(link from http://www.eurexchange.com/exchange-en/products/vendor-product-codes)
+	exchange participants
+	http://www.eurexchange.com
+	
+	the above spreadsheet gives us first 5 characters of counterparty code, but there are three more. presume this is the actual
+	trader or the type of trade
+	
+	
+	Connectivity
+	************
+
+EEX 
+***
+	energy exchange (some sort of tie in with EUREX. EUREX's trading platform can be used to trade on EEX)
+	can download file mapping product code to ISIN
+	https://www.eex.com/dl/en/66446/file
+
+
+	
+	
+EURONEXT
+********
+	European stock and derivatives exchange, bases in Amsterdam, Brussels, London, Lisbon and Paris
+	Products: equities, exchange-traded funds, warrants and certificates, bonds, derivatives, commodities and indices.
+	
+	includes most of the european exchanges (though not main german or london), plus 		
+		LIFFE
+	
+	codes. link on page https://www.euronext.com/trading/trading-codes. nope...
+	struggling.. can do a search using their web site but doesn't bring back ISIN. does bring back prices though if we could process these
+	
+	
+ICE / NYSE
+**********
+	ICE includes a whole bunch of exchanges, single list of product codes:
+	https://www.theice.com/api/productguide/info/codes/all/csv
+	vendor codes:
+	http://data.theice.com/Services/DataDistribution/Vendor/VendorCodes.aspx
+	mapping between product code and vendor code not obvious	
+	
+
+		
+
+CME
+*************
+Owns following exchanges; 
+	NYMEX (NY mercantile exchange)
+	COMEX
+	CBOT
+	CME
+Electronic trading platform for (all?) the above is GLOBEX
+
+Can download a vendor file which provides a mapping between product name, GLOBEX code and bloomberg code (not isin)
+GLOBEX code seems to be the same as the NYMEX code on the spreadsheet. otherwise may need a separate download linking the various CME codes 
+
+http://www.cmegroup.com/tools-information/files/Quote-Vendor-File-Excel.xlsx
+http://www.cmegroup.com/CmeWS/mvc/ProductSlate/V1/Download.xls
+
+
+NASDAQ-OMS
+**********
+
+
+
+
+
+
+
+
+
+ 

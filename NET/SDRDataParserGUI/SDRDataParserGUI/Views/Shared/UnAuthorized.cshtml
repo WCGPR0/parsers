@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewBag.Title = "UnAuthorized";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="span12">
+    <div class="hero-unit center">
+        <h1>@System.Web.HttpContext.Current.User.Identity.Name<small><font face="Tahoma" color="red">Error</font></small></h1>
+        <br>
+    </div>
+    <br>
+</div>

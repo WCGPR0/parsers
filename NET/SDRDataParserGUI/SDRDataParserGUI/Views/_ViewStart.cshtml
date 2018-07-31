@@ -1,0 +1,7 @@
+﻿@{
+    List<string> admins = Functions.GetConfigSetting("Admins.Market").Split(',').ToList(); //!* APPLICATION_POSTAUTHENTICATEREQUEST; avoid DRY
+    if (User.Identity.IsAuthenticated && admins.Contains((ViewContext.RouteData.Values["username"] ?? "").ToString().ToLower()))
+    { Layout = "~/Views/Shared/_LayoutAdmin.cshtml"; }
+    else
+    { Layout = "~/Views/Shared/_Layout.cshtml"; }
+}

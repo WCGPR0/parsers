@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/SyntaxHighlighter/shCore.css")
+    @Scripts.Render("~/bundles/explorer")
+    @Scripts.Render("~/bundles/SyntaxHighlighter/codeHighlight")
+    @Scripts.Render("~/bundles/jquery")
+    @Styles.Render("~/Content/jquery-ui/jquery-ui-css")
+    @Scripts.Render("~/Scripts/jquery-ui.min.js")
+    @Scripts.Render("~/bundles/gridExports")
+    @Html.C1().Resources("light")
+    @RenderSection("Head", false)
+</head>
+<body @*style="width: 400px;height: 660px;overflow-y:auto; -webkit-overflow-scrolling: touch;"*@>
+            <div class="page-content">
+                @RenderBody()
+            </div>
+</body>
+</html>

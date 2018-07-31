@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "Line Chart";
+}
+
+<div id="chartContainer_line"></div>
+
+<script type="text/javascript">
+
+    $(function () {
+        var chart = new CanvasJS.Chart("chartContainer_line", {
+            theme: "theme2",
+            zoomEnabled: true,
+            animationEnabled: true,
+            title: {
+                text: "Line Chart of Ticker: DGD"
+            },
+            subtitles: [
+                {
+                    text: "Try Zooming and Panning"
+                }
+            ],
+            data: [
+            {
+                type: "line",
+
+                dataPoints: [
+                    @foreach (var item in Model.reportList) { <text> {x: @item.interest, y: @item.price },</text>}
+                  /*  { x: 1, y: 71 },
+				    { x: 2, y: 55 },
+				    { x: 3, y: 50 },
+				    { x: 4, y: 65 },
+				    { x: 5, y: 95 },
+				    { x: 6, y: 68 },
+				    { x: 7, y: 28 },
+				    { x: 8, y: 34 },
+				    { x: 9, y: 14 },
+				    { x: 10, y: 33 },
+				    { x: 11, y: 42 },
+				    { x: 12, y: 62 }*/
+                ],
+
+                //You can add dynamic data from the controller as shown below. Check the controller and uncomment the line which generates dataPoints.
+                //dataPoints: @Html.Raw(ViewBag.DataPoints),
+            }
+            ]
+        });
+        chart.render();
+    });
+</script>
