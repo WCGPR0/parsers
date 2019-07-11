@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+	<Product Id="*" Name="$(var.ProductName)" Language="1033" Version="$(var.InstallVersionNumber)" Manufacturer="Tradition" UpgradeCode="$(var.UpgradeCode)">
+		<Package Platform="x86" InstallerVersion="200" Compressed="$(var.PackageCompressed)" InstallScope="perMachine" Comments="Revision:$(var.RevisionNumber)"/>
+		<MajorUpgrade DowngradeErrorMessage="A later revision of ConstantContactSendTrades Addin is already installed."/>
+		<MediaTemplate EmbedCab="$(var.EmbedCab)"/>
+		<PropertyRef Id="NETFRAMEWORK45"/>
+		<Condition Message="You must install Microsoft .NET 4.5"><![CDATA[Installed OR NETFRAMEWORK45]]></Condition>
+		<Feature Id="ConstantContactSendTrades" Title="$(var.ProductName)" Level="1">
+			<ComponentGroupRef Id="$(var.TargetSourceName)"/>
+			<ComponentGroupRef Id="Registry"/>
+			<ComponentGroupRef Id="Cleanup"/>
+		</Feature>
+	</Product>
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="Tradition" Name="Tradition">
+				</Directory>
+			</Directory>
+		</Directory>
+	</Fragment>
+	<Fragment>
+		<ComponentGroup Id="Registry">
+			<Component Id="RegistryEntries" Directory="INSTALLFOLDER" Guid="*">
+				<RegistryKey Root="HKCU" Key="$(var.RegistryKeyPath)">
+					<RegistryValue Type="string" Name="Product.Code" Value="[ProductCode]" KeyPath="yes"/>
+					<RegistryValue Type="string" Name="Executable.Path" Value="[INSTALLFOLDER]"/>
+					<RegistryValue Type="string" Name="Executable.Name" Value="$(var.TargetSourceName).exe"/>
+				</RegistryKey>
+			</Component>
+		</ComponentGroup>
+		<ComponentGroup Id="Cleanup">
+			<Component Id="RemoveFolders" Directory="INSTALLFOLDER" Guid="*">
+				<RegistryValue Root="HKCU" Key="$(var.RegistryKeyPath)" Name="KeyPath" Type="string" Value="RemoveFolders" KeyPath="yes"/>
+				<RemoveFolder Id="RemoveInstallFolder" Directory="INSTALLFOLDER" On="uninstall"/>
+				<RemoveFolder Id="RemoveTraditionFolder" Directory="Tradition" On="uninstall"/>
+			</Component>
+		</ComponentGroup>
+	</Fragment>
+</Wix>

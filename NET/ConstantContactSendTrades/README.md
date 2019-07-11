@@ -1,0 +1,2 @@
+# ConstantContactSendTrades
+> Sample project that uses Excel-DNA to create UDFs (User Defined Functions) for easy automation within Excel. The UDFs in this function include using the ConstantContact API, to create and send emails in bulk, as well as GoogleDrive API to include a hyperlink to a stored file.

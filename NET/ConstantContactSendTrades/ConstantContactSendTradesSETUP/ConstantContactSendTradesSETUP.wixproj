@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+		<Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+		<ProductVersion>3.10</ProductVersion>
+		<ProjectGuid>8fa0d943-ea02-4abf-b3d2-4849f63636b2</ProjectGuid>
+		<SchemaVersion>2.0</SchemaVersion>
+		<OutputName>ConstantContactSendTradesSETUP</OutputName>
+		<OutputDirectoryName>ConstantContactSendTrades</OutputDirectoryName>
+		<GuidGenerationSeed>E239C3C5-BF88-4656-8606-2562F02D9758</GuidGenerationSeed>
+		<OutputType>Package</OutputType>
+		<TargetSourceName>ConstantContactSendTrades</TargetSourceName>
+		<TargetSourceProject>$(TargetSourceName).csproj</TargetSourceProject>
+		<TargetBuildPath>..\..\..\..\..\NET\Tradition.2013\Build\</TargetBuildPath>
+		<TargetSourcePath>..\ConstantContactSendTrades\</TargetSourcePath>
+		<OutputPathBase>..\..\..\..\..\NET\Tradition.2013\Install\Local\$(Configuration)\</OutputPathBase>
+		<UseHostCompilerIfAvailable>false</UseHostCompilerIfAvailable>
+		<WixToolPath>..\..\..\..\..\NET\Libraries\WiX Toolset\bin\</WixToolPath>
+		<WixTargetsPath>$(WixToolPath)Wix.targets</WixTargetsPath>
+		<WixTasksPath>wixtasks.dll</WixTasksPath>
+		<WixUpgradeCode>6E052189-9159-477A-B8CB-F23550ADAC08</WixUpgradeCode>
+		<SuppressSpecificWarnings>1076</SuppressSpecificWarnings>
+		<Name>Tradition.Wix.Local</Name>
+		<RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+		<ProductNameBase>Tradition ARR Excel Controls</ProductNameBase>
+		<ProductName>$(ProductNameBase) - $(Configuration)</ProductName>
+		<RegistryKeyPath>Software\Tradition\ConstantContactSendTrades</RegistryKeyPath>
+		<ShortcutName>$(Configuration)</ShortcutName>
+		<InstallType>General</InstallType>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+		<OutputPath>$(OutputPathBase)</OutputPath>
+		<OutputEmbedCab>no</OutputEmbedCab>
+		<OutputPackageCompressed>no</OutputPackageCompressed>
+		<IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+		<DefineConstants>Debug</DefineConstants>
+		<SuppressPdbOutput>True</SuppressPdbOutput>
+		<TreatWarningsAsErrors>True</TreatWarningsAsErrors>		
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+		<OutputPath>$(OutputPathBase)$(VersionNumber)\</OutputPath>
+		<OutputEmbedCab>yes</OutputEmbedCab>
+		<OutputPackageCompressed>yes</OutputPackageCompressed>
+		<IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+		<SuppressPdbOutput>True</SuppressPdbOutput>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Energy|x86' ">
+		<OutputPath>$(OutputPathBase)$(VersionNumber)\</OutputPath>
+		<OutputEmbedCab>yes</OutputEmbedCab>
+		<OutputPackageCompressed>yes</OutputPackageCompressed>
+		<IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+		<SuppressPdbOutput>True</SuppressPdbOutput>
+	</PropertyGroup>
+	<ItemGroup>
+		<Compile Include="Product.wxs"/>
+		<Compile Include="ConstantContactSendTrades.Output.wxs"/>
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\ConstantContactSendTrades\ConstantContactSendTrades.csproj">
+			<Name>ConstantContactSendTrades</Name>
+			<Project>{69EB385C-B71F-45B7-8A6B-1891D73F83F5}</Project>
+			<Private>True</Private>
+			<DoNotHarvest>True</DoNotHarvest>
+			<RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+			<RefTargetDir>INSTALLFOLDER</RefTargetDir>
+		</ProjectReference>
+	</ItemGroup>
+	<ItemGroup>
+		<Content Include="Configuration\Energy.deploy.xml"/>
+		<Content Include="harvested.output.xslt"/>
+		<Content Include="Scripts\post.build.js"/>
+		<Content Include="Scripts\pre.build.js"/>
+	</ItemGroup>
+	<ItemGroup>
+		<WixExtension Include="WixNetFxExtension">
+			<HintPath>..\..\..\..\..\Libraries\WiX Toolset\bin\WixNetFxExtension.dll</HintPath>
+			<Name>WixNetFxExtension</Name>
+		</WixExtension>
+	</ItemGroup>
+	<ItemGroup>
+		<Folder Include="Configuration"/>
+		<Folder Include="Scripts"/>
+	</ItemGroup>
+	<Import Project="$(WixTargetsPath)" Condition=" '$(WixTargetsPath)' != '' "/>
+	<Import Project="$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets" Condition=" '$(WixTargetsPath)' == '' AND Exists('$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets') "/>
+	<Target Name="BeforeBuild">
+		<Exec Command="cscript $(ProjectDir)Scripts\pre.build.js $(ProjectDir) $(Configuration) $(InstallType)"/>
+		<HeatDirectory Transforms="harvested.output.xslt" SuppressRegistry="True" SuppressCom="True" AutogenerateGuids="True" OutputFile="$(TargetSourceName).Output.wxs" Directory="$(TargetBuildPath)$(Configuration)" DirectoryRefId="INSTALLFOLDER" ComponentGroupName="$(TargetSourceName)" ToolPath="$(WixToolPath)" PreprocessorVariable="var.$(TargetSourceName).TargetDir" SuppressRootDirectory="true" VerboseOutput="true"/>
+		<!-- Read the version from the to-be-installed .exe -->
+		<GetAssemblyIdentity AssemblyFiles="$(TargetBuildPath)$(Configuration)\$(TargetSourceName).dll">
+			<Output TaskParameter="Assemblies" ItemName="AsmInfo"/>
+		</GetAssemblyIdentity>
+		<!-- Create the MSBuild property $(VersionNumber) -->
+		<CreateProperty Value="%(AsmInfo.Version)">
+			<Output TaskParameter="Value" PropertyName="VersionNumber"/>
+		</CreateProperty>
+		<CreateProperty Value="$([System.DateTime]::Now.ToString(`yy`)).$([System.DateTime]::Now.ToString(`MM`)).$(VersionNumber.ToString().Split('.')[3])">
+			<Output TaskParameter="Value" PropertyName="InstallVersionNumber"/>
+		</CreateProperty>
+		<CreateProperty Value="$(VersionNumber.ToString().Split('.')[2])$(VersionNumber.ToString().Split('.')[3])">
+			<Output TaskParameter="Value" PropertyName="RevisionNumber"/>
+		</CreateProperty>
+		<!-- Extend the WiX preprocessor variables -->
+		<CreateProperty Value="$(DefineConstants);RegistryKeyPath=$(RegistryKeyPath);ShortcutName=$(ShortcutName);UpgradeCode=$(WixUpgradeCode);Configuration=$(Configuration);ProductName=$(ProductName);GuidGenerationSeed=$(GuidGenerationSeed);RevisionNumber=$(RevisionNumber);VersionNumber=$(VersionNumber);InstallVersionNumber=$(InstallVersionNumber);EmbedCab=$(OutputEmbedCab);PackageCompressed=$(OutputPackageCompressed);OutputName=$(OutputName);OutputDirectoryName=$(OutputDirectoryName);TargetSourceName=$(TargetSourceName)">
+			<Output TaskParameter="Value" PropertyName="DefineConstants"/>
+		</CreateProperty>
+		<!-- Update the MSBuild properties $(TargetName), etc. -->
+		<CreateProperty Value="$(OutputName) [$(Configuration) $(VersionNumber)]">
+			<Output TaskParameter="Value" PropertyName="TargetName"/>
+		</CreateProperty>
+		<CreateProperty Value="$(TargetName)$(TargetExt)">
+			<Output TaskParameter="Value" PropertyName="TargetFileName"/>
+		</CreateProperty>
+		<CreateProperty Value="$(TargetName)$(TargetPdbExt)">
+			<Output TaskParameter="Value" PropertyName="TargetPdbName"/>
+		</CreateProperty>
+		<CreateProperty Value="$(TargetDir)$(TargetFileName)">
+			<Output TaskParameter="Value" PropertyName="TargetPath"/>
+		</CreateProperty>
+		<CreateProperty Value="$(TargetPdbDir)$(TargetPdbName)">
+			<Output TaskParameter="Value" PropertyName="TargetPdbPath"/>
+		</CreateProperty>
+		<!-- Update the MSBuild property from which candle.exe args are derived -->
+		<CreateProperty Value="&#xD;&#xA;    OutDir=$(OutDir);&#xD;&#xA;    Platform=$(PlatformName);&#xD;&#xA;    ProjectDir=$(ProjectDir);&#xD;&#xA;    ProjectExt=$(ProjectExt);&#xD;&#xA;    ProjectFileName=$(ProjectFileName);&#xD;&#xA;    ProjectName=$(ProjectName);&#xD;&#xA;    ProjectPath=$(ProjectPath);&#xD;&#xA;    TargetDir=$(TargetDir);&#xD;&#xA;    TargetExt=$(TargetExt);&#xD;&#xA;    TargetFileName=$(TargetFileName);&#xD;&#xA;    TargetName=$(TargetName);&#xD;&#xA;    TargetPath=$(TargetPath);&#xD;&#xA;  ">
+			<Output TaskParameter="Value" PropertyName="ProjectDefineConstants"/>
+		</CreateProperty>
+	</Target>
+	<Target Name="AfterBuild">
+		<GetAssemblyIdentity AssemblyFiles="$(TargetBuildPath)$(Configuration)\$(TargetSourceName).dll">
+			<Output TaskParameter="Assemblies" ItemName="AsmInfo"/>
+		</GetAssemblyIdentity>
+		<!-- Create the MSBuild property $(VersionNumber) -->
+		<CreateProperty Value="%(AsmInfo.Version)">
+			<Output TaskParameter="Value" PropertyName="VersionNumber"/>
+		</CreateProperty>
+		<CreateProperty Value="$([System.DateTime]::Now.ToString(`yy`)).$([System.DateTime]::Now.ToString(`MM`)).$(VersionNumber.ToString().Split('.')[3])">
+			<Output TaskParameter="Value" PropertyName="InstallVersionNumber"/>
+		</CreateProperty>
+		<CreateProperty Value="$(VersionNumber.ToString().Split('.')[2])$(VersionNumber.ToString().Split('.')[3])">
+			<Output TaskParameter="Value" PropertyName="RevisionNumber"/>
+		</CreateProperty>
+		<CreateProperty Value="$(OutputName) [$(Configuration) $(VersionNumber)]">
+			<Output TaskParameter="Value" PropertyName="TargetName"/>
+		</CreateProperty>
+		<CreateProperty Value="$(TargetName)$(TargetExt)">
+			<Output TaskParameter="Value" PropertyName="TargetFileName"/>
+		</CreateProperty>
+		<CreateProperty Value="$(TargetName)$(TargetPdbExt)">
+			<Output TaskParameter="Value" PropertyName="TargetPdbName"/>
+		</CreateProperty>
+		<CreateProperty Value="$(TargetDir)$(TargetFileName)">
+			<Output TaskParameter="Value" PropertyName="TargetPath"/>
+		</CreateProperty>
+		<CreateProperty Value="$(TargetPdbDir)$(TargetPdbName)">
+			<Output TaskParameter="Value" PropertyName="TargetPdbPath"/>
+		</CreateProperty>
+		<Exec Command="cscript $(ProjectDir)Scripts\post.build.js $(ProjectDir) $(Configuration) $(RevisionNumber) &quot;$(TargetDir)&quot; &quot;$(TargetFileName)&quot; $(InstallType)"/>
+	</Target>
+</Project>

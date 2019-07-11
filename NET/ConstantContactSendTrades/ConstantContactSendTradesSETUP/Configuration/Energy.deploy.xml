@@ -1,0 +1,5 @@
+﻿<Deployments>
+  <Deploy>
+    <Location>\\software\ConstantContactSendTrades</Location>
+  </Deploy>
+</Deployments>
