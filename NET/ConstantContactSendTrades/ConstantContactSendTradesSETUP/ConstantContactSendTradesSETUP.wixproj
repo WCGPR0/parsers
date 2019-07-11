@@ -12,20 +12,20 @@
 		<OutputType>Package</OutputType>
 		<TargetSourceName>ConstantContactSendTrades</TargetSourceName>
 		<TargetSourceProject>$(TargetSourceName).csproj</TargetSourceProject>
-		<TargetBuildPath>..\..\..\..\..\NET\Tradition.2013\Build\</TargetBuildPath>
+		<TargetBuildPath>..\..\..\..\..\NET\Build\</TargetBuildPath>
 		<TargetSourcePath>..\ConstantContactSendTrades\</TargetSourcePath>
-		<OutputPathBase>..\..\..\..\..\NET\Tradition.2013\Install\Local\$(Configuration)\</OutputPathBase>
+		<OutputPathBase>..\..\..\..\..\NET\Install\Local\$(Configuration)\</OutputPathBase>
 		<UseHostCompilerIfAvailable>false</UseHostCompilerIfAvailable>
 		<WixToolPath>..\..\..\..\..\NET\Libraries\WiX Toolset\bin\</WixToolPath>
 		<WixTargetsPath>$(WixToolPath)Wix.targets</WixTargetsPath>
 		<WixTasksPath>wixtasks.dll</WixTasksPath>
 		<WixUpgradeCode>6E052189-9159-477A-B8CB-F23550ADAC08</WixUpgradeCode>
 		<SuppressSpecificWarnings>1076</SuppressSpecificWarnings>
-		<Name>Tradition.Wix.Local</Name>
+		<Name>Wix.Local</Name>
 		<RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
-		<ProductNameBase>Tradition ARR Excel Controls</ProductNameBase>
+		<ProductNameBase>Excel Controls</ProductNameBase>
 		<ProductName>$(ProductNameBase) - $(Configuration)</ProductName>
-		<RegistryKeyPath>Software\Tradition\ConstantContactSendTrades</RegistryKeyPath>
+		<RegistryKeyPath>Software\ConstantContactSendTrades</RegistryKeyPath>
 		<ShortcutName>$(Configuration)</ShortcutName>
 		<InstallType>General</InstallType>
 	</PropertyGroup>

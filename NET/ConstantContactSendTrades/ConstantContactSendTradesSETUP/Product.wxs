@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
-	<Product Id="*" Name="$(var.ProductName)" Language="1033" Version="$(var.InstallVersionNumber)" Manufacturer="Tradition" UpgradeCode="$(var.UpgradeCode)">
+	<Product Id="*" Name="$(var.ProductName)" Language="1033" Version="$(var.InstallVersionNumber)" Manufacturer="" UpgradeCode="$(var.UpgradeCode)">
 		<Package Platform="x86" InstallerVersion="200" Compressed="$(var.PackageCompressed)" InstallScope="perMachine" Comments="Revision:$(var.RevisionNumber)"/>
 		<MajorUpgrade DowngradeErrorMessage="A later revision of ConstantContactSendTrades Addin is already installed."/>
 		<MediaTemplate EmbedCab="$(var.EmbedCab)"/>
@@ -15,7 +15,7 @@
 	<Fragment>
 		<Directory Id="TARGETDIR" Name="SourceDir">
 			<Directory Id="ProgramFilesFolder">
-				<Directory Id="Tradition" Name="Tradition">
+				<Directory Id="" Name="">
 				</Directory>
 			</Directory>
 		</Directory>
@@ -34,7 +34,7 @@
 			<Component Id="RemoveFolders" Directory="INSTALLFOLDER" Guid="*">
 				<RegistryValue Root="HKCU" Key="$(var.RegistryKeyPath)" Name="KeyPath" Type="string" Value="RemoveFolders" KeyPath="yes"/>
 				<RemoveFolder Id="RemoveInstallFolder" Directory="INSTALLFOLDER" On="uninstall"/>
-				<RemoveFolder Id="RemoveTraditionFolder" Directory="Tradition" On="uninstall"/>
+				<RemoveFolder Id="RemoveFolder" Directory="" On="uninstall"/>
 			</Component>
 		</ComponentGroup>
 	</Fragment>
